@@ -1,8 +1,7 @@
 package org.example.app;
+import java.time.LocalDateTime;
 
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 public class Customer {

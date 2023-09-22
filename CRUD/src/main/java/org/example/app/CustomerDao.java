@@ -1,32 +1,47 @@
 package org.example.app;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Repository
 public class CustomerDao {
+    private final NamedParameterJdbcTemplate template;
 
-    private  final NamedParameterJdbcTemplate template;
-    private final JdbcTemplate jdbcTemplate;
-
-    public CustomerDao (NamedParameterJdbcTemplate template, JdbcTemplate jdbcTemplate) {
+    public CustomerDao(NamedParameterJdbcTemplate template) {
         this.template = template;
-        this.jdbcTemplate = jdbcTemplate;
     }
 
-    @PostMapping
-    public Long createCustomer (Customer customer) {
-        String sql = "INSERT INTO customer (fio, phone, address) VALUES (:fio, :phone, :address) RETURNING ID";
-        Map<String, Object> map = new HashMap<>();
-        map.put("fio", customer.getFio());
-        map.put("phone", customer.getPhone());
-        map.put("address", customer.getAddress());
-        return template.queryForObject(sql, map, Long.class);
+    public Long createCustomer(Customer customer) {
+        String sql = "INSERT INTO customer (fio, phone, address) "
+                + "VALUES (:fio, :phone, :address) RETURNING ID";
+        SqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue("fio", customer.getFio())
+                .addValue("phone", customer.getPhone())
+                .addValue("address", customer.getAddress());
+        return template.queryForObject(sql, parameterSource, Long.class);
     }
 
+    public Customer getCustomerById(long id) {
+        String sql = "SELECT * FROM customer WHERE customer.id = :id";
+        SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
+        return template.queryForObject(sql, parameterSource, new CustomerRowMapper());
+    }
+
+    public void editCustomer(Customer customer) {
+        String sql = "UPDATE customer SET fio = :fio, address = :address, phone = :phone WHERE id = :id";
+        SqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue("id", customer.getId())
+                .addValue("fio", customer.getFio())
+                .addValue("phone", customer.getPhone())
+                .addValue("address", customer.getAddress());
+        template.update(sql, parameterSource);
+    }
+
+    public void deleteCustomer(long id) {
+        String sql = "DELETE FROM customer WHERE id = :id";
+        SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
+        template.update(sql, parameterSource);
+    }
 }

@@ -28,7 +28,7 @@ public class CustomerDao {
         return template.queryForObject(sql, parameterSource, Long.class);
     }
 
-    public Customer getCustomerById(int id) {
+    public Customer getCustomerById(long id) {
         String sql = "SELECT * FROM customer WHERE customer.id = :id";
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
         return template.queryForObject(sql, parameterSource, new CustomerRowMapper());
@@ -44,7 +44,7 @@ public class CustomerDao {
         template.update(sql, parameterSource);
     }
 
-    public void deleteCustomer(long id) {
+    public void deleteCustomerById(long id) {
         String sql = "DELETE FROM customer WHERE id = :id";
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
         template.update(sql, parameterSource);

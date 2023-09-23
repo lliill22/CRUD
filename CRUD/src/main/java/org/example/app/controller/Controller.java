@@ -19,7 +19,7 @@ public class Controller {
     }
 
     @GetMapping
-    public Customer getCustomerById(@RequestParam int id) {
+    public Customer getCustomerById(@RequestParam long id) {
         return dao.getCustomerById(id);
     }
 
@@ -30,6 +30,6 @@ public class Controller {
 
     @DeleteMapping
     public void deleteCustomer(@RequestParam long id) {
-        dao.deleteCustomer(id);
+        dao.deleteCustomerById(id);
     }
 }

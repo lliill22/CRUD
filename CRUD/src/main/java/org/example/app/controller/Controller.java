@@ -1,5 +1,7 @@
-package org.example.app;
+package org.example.app.controller;
 
+import org.example.app.db.Customer;
+import org.example.app.repository.CustomerDao;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +19,7 @@ public class Controller {
     }
 
     @GetMapping
-    public Customer getCustomerById(@RequestParam long id) {
+    public Customer getCustomerById(@RequestParam int id) {
         return dao.getCustomerById(id);
     }
 

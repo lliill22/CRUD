@@ -1,9 +1,14 @@
-package org.example.app;
+package org.example.app.repository;
 
+import org.example.app.db.Customer;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @Repository
 public class CustomerDao {
@@ -23,7 +28,7 @@ public class CustomerDao {
         return template.queryForObject(sql, parameterSource, Long.class);
     }
 
-    public Customer getCustomerById(long id) {
+    public Customer getCustomerById(int id) {
         String sql = "SELECT * FROM customer WHERE customer.id = :id";
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
         return template.queryForObject(sql, parameterSource, new CustomerRowMapper());
@@ -43,5 +48,18 @@ public class CustomerDao {
         String sql = "DELETE FROM customer WHERE id = :id";
         SqlParameterSource parameterSource = new MapSqlParameterSource("id", id);
         template.update(sql, parameterSource);
+    }
+
+    public static class CustomerRowMapper implements RowMapper<Customer> {
+        @Override
+        public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Customer customer = new Customer();
+            customer.setId(rs.getLong("id"));
+            customer.setFio(rs.getString("fio"));
+            customer.setPhone(rs.getString("phone"));
+            customer.setAddress(rs.getString("address"));
+            customer.setCreated(rs.getTimestamp("created").toLocalDateTime());
+            return customer;
+        }
     }
 }

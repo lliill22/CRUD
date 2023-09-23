@@ -1,4 +1,4 @@
-package org.example.app;
+package org.example.app.db;
 import java.time.LocalDateTime;
 
 import lombok.Data;

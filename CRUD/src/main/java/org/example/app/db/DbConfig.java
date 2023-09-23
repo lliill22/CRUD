@@ -1,4 +1,4 @@
-package org.example.app;
+package org.example.app.db;
 
 import javax.sql.DataSource;
 

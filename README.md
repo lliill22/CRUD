@@ -24,8 +24,8 @@ git clone git@github.com:lliill22/CRUD.git
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/your_database
-spring.datasource.username=postgres
-spring.datasource.password=postgres
+spring.datasource.username=your-username
+spring.datasource.password=your_password
 ```
 
 ### Running the Application
@@ -55,12 +55,8 @@ The application will start, and you can access it via `http://localhost:8080`.
 
 Feel free to contribute to this project by opening issues or pull requests. Any feedback or improvements are welcome!
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
 ---
 
-**Note:** Make sure to replace placeholders like `your-username`, `your_database`, `your_username`, and `your_password` with your actual values.
+**Note:** Make sure to replace placeholders like `your-username`, `your_database` and `your_password` with your actual values.
 
 Enjoy using the CRUD application! If you have any questions or need further assistance, feel free to reach out.

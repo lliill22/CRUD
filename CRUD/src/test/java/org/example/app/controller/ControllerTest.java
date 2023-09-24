@@ -108,9 +108,8 @@ public class ControllerTest {
     @Test
     public void editNonExistentCustomerTest() throws Exception {
         Customer nonExistentCustomer = new Customer();
-        nonExistentCustomer.setId(100L); // Предполагаем, что клиента с ID 100 нет
+        nonExistentCustomer.setId(100L);
 
-        // Ожидаем, что запрос вернет статус 404 (Not Found)
         mockMvc.perform(put("/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(nonExistentCustomer)))

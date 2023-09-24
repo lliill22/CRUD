@@ -14,7 +14,7 @@ This is a CRUD (Create, Read, Update, Delete) application built with Spring Boot
 1. Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/CRUDapp.git
+git clone git@github.com:lliill22/CRUD.git
 ```
 
 2. Configure PostgreSQL:
@@ -24,8 +24,8 @@ git clone https://github.com/your-username/CRUDapp.git
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/your_database
-spring.datasource.username=your_username
-spring.datasource.password=your_password
+spring.datasource.username=postgres
+spring.datasource.password=postgres
 ```
 
 ### Running the Application
